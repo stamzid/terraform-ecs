@@ -44,6 +44,16 @@ Push the image: \
 
 ## Provision Rest of the Infrastructure
 
+The following variables need to be added to `terraform.tfvars` file within the terraform folder.
+
+```
+vpc_id = <vpc id>
+subnets = <subnets for vpc>
+app_image = <ecr repo url for the image>
+vpc_cidr_blocks = <vpc cidr block>
+ec2_key_name = <key pair name>
+```
+
 Change directory to `terraform/` and run the command `terraform apply`. This will show a plan, double check the resources and then type `yes` to apply the plan. Once finished this will output the DNS of the load balancer. From a browser or a HTTP client like PostMan or with curl, call this endpoint and it should return something like following:
 
 ```
