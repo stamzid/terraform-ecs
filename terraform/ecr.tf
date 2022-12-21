@@ -28,3 +28,7 @@ resource "aws_ecr_repository_policy" "demo-repo-policy" {
   }
   EOF
 }
+
+output "ecr_repo" {
+  value = aws_ecr_repository.unstructured-repo.repository_url
+}
