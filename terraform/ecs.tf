@@ -22,6 +22,10 @@ resource "aws_ecs_task_definition" "unstructured-task-definition" {
   network_mode             = "host"
   requires_compatibilities = ["EC2"]
   task_role_arn            = aws_iam_role.unstructured-ecs-task-role.arn
+  volume {
+    name = "ecs-instance-volume"
+    host_path = "/instance-vol"
+  }
   container_definitions    = jsonencode([
     {
         "name": "unstructured-web-app",
@@ -35,6 +39,12 @@ resource "aws_ecs_task_definition" "unstructured-task-definition" {
                 "containerPort": 8080,
                 "hostPort": 8080
             }
+        ],
+        "mountPoints": [
+          {
+            "sourceVolume": "ecs-instance-volume",
+            "containerPath": "/data"
+          }
         ],
         "environment": [
           {
